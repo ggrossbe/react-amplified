@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Component } from 'react'
 import Amplify, { API, graphqlOperation } from 'aws-amplify'
 import { withAuthenticator } from '@aws-amplify/ui-react'
-import { createTodo } from './graphql/mutations'
-import { listTodos } from './graphql/queries'
-
+import { listPeople } from './graphql/queries'
+import './App.css';
 import awsExports from "./aws-exports";
+import Navigator from './components/Navigator.jsx';
+import Main from './components/Main.jsx';
+
 Amplify.configure(awsExports);
 
 const initialState = { name: '', description: '' }
 
 const App = () => {
   const [formState, setFormState] = useState(initialState)
+
+/*
   const [todos, setTodos] = useState([])
 
   useEffect(() => {
@@ -23,10 +27,10 @@ const App = () => {
 
   async function fetchTodos() {
     try {
-      const todoData = await API.graphql(graphqlOperation(listTodos))
-      const todos = todoData.data.listTodos.items
+      const todoData = await API.graphql(graphqlOperation(listPeople));
+      const todos = todoData.data.listPeople.items
       setTodos(todos)
-    } catch (err) { console.log('error fetching todos') }
+    } catch (err) { console.log('error fetching todos ' + err) }
   }
 
   async function addTodo() {
@@ -35,15 +39,24 @@ const App = () => {
       const todo = { ...formState }
       setTodos([...todos, todo])
       setFormState(initialState)
-      await API.graphql(graphqlOperation(createTodo, {input: todo}))
+      //await API.graphql(graphqlOperation(createTodo, {input: todo}))
     } catch (err) {
       console.log('error creating todo:', err)
     }
   }
-
+*/
+/*            <Main />*/
   return (
+    <React.Fragment>
+      <Navigator />
+      <Main/>
+      </React.Fragment>
+    );
+
+/*
+<AmplifyGreetings/>
     <div style={styles.container}>
-      <h2>Amplify Todos</h2>
+      <h2>TrainingTracker</h2>
       <input
         onChange={event => setInput('name', event.target.value)}
         style={styles.input}
@@ -61,12 +74,14 @@ const App = () => {
         todos.map((todo, index) => (
           <div key={todo.id ? todo.id : index} style={styles.todo}>
             <p style={styles.todoName}>{todo.name}</p>
-            <p style={styles.todoDescription}>{todo.description}</p>
+            <p style={styles.todoEmail}>{todo.email}</p>
+            <p style={styles.todoId}>{todo.id}</p>
+            <p style={styles.todoToken}>{todo.token}</p>
           </div>
         ))
       }
     </div>
-  )
+*/
 }
 
 const styles = {
@@ -78,4 +93,4 @@ const styles = {
   button: { backgroundColor: 'black', color: 'white', outline: 'none', fontSize: 18, padding: '12px 0px' }
 }
 
-export default withAuthenticator(App)
+export default withAuthenticator(App, true);

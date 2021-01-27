@@ -1,3 +1,24 @@
+body {
+  padding-top: 5rem;
+}
+.starter-template {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.navbar-text {
+  padding-right: 0.5rem;
+}
+
+.navbar .button {
+  margin-right: 0.5rem;
+}
+
+.bg-dark {
+    background-color: #dd3333!important;
+}
+
+
 .App {
   text-align: center;
 }
